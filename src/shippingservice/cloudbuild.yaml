@@ -3,8 +3,8 @@ steps:
    entrypoint: sh
    args:
      - '-c'
-     - "docker build -f src/shippingservice/Dockerfile --tag=gcr.io/$PROJECT_ID/shippingservice:v0.1.1-4-g$COMMIT_SHA --build-arg BLDDATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg REPO_NAME=$REPO_NAME --build-arg COMMIT_SHA=$COMMIT_SHA --build-arg GIT_TAG=$(git describe --tags --exact-match || git symbolic-ref -q --short HEAD) ."
+     - "docker build -f src/shippingservice/Dockerfile --tag=gcr.io/$PROJECT_ID/shippingservice:v0.1.1-4-g$SHORT_SHA --build-arg BLDDATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg REPO_NAME=$REPO_NAME --build-arg COMMIT_SHA=$COMMIT_SHA --build-arg GIT_TAG=$(git describe --tags --exact-match || git symbolic-ref -q --short HEAD) src/shippingservice"
 
 images: 
-  - 'gcr.io/$PROJECT_ID/shippingservice:v0.1.1-4-g$COMMIT_SHA'
+  - 'gcr.io/$PROJECT_ID/shippingservice:v0.1.1-4-g$SHORT_SHA'
   
