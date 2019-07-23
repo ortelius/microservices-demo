@@ -1,10 +1,35 @@
 steps:
+# Build the image and save details as part of the LABEL
+
  - name: 'gcr.io/cloud-builders/docker'
    entrypoint: sh
    args:
      - '-c'
      - "docker build -f src/adservice/Dockerfile --tag=gcr.io/$PROJECT_ID/adservice:v0.1.1-4-g$SHORT_SHA --build-arg BLDDATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg REPO_NAME=$REPO_NAME --build-arg COMMIT_SHA=$COMMIT_SHA --build-arg GIT_TAG=$(git describe --tags --exact-match || git symbolic-ref -q --short HEAD) src/adservice"
 
-images: 
-  - 'gcr.io/$PROJECT_ID/adservice:v0.1.1-4-g$SHORT_SHA'
-  
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['tag', 'gcr.io/$PROJECT_ID/adservice:v0.1.1-4-g$SHORT_SHA', 'hipsterstore/adservice:v0.1.1-4-g$SHORT_SHA']
+
+# Login to provide credentials for the push.
+# PASSWORD is decrypted before this step runs.
+# Note: You need a shell to resolve environment variables with $$
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'docker login --username=$$USERID --password=$$PASSWORD' quay.io]
+  secretEnv: ['USERID', 'PASSWORD']
+
+# Push the image to Dockerhub.
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push', 'hipsterstore/adservice:v0.1.1-4-g$SHORT_SHA']
+
+ - name: 'quay.io/deployhub/compupdate'
+   args: ['--dhurl', 'https://console.deployhub.com', ]
+images: ['[IMAGE_NAME]']  
+
+secrets:
+- kmsKeyName: projects/[PROJECT-ID]/locations/global/keyRings/cli/cryptoKeys/quay
+  secretEnv:
+    USERID: CiQAW+P1J9UZz+Hr1uonladAW2dKqaiVd5ux8Q9EV81pK0u5V+4SNACcBdnKacvH4QXPamH1N4uJZvZ/0TMwvELgXAAlP0wR2zBw2WhCV82GMiUkW3iGVlbqz7c=
+- kmsKeyName: projects/[PROJECT-ID]/locations/global/keyRings/cli/cryptoKeys/quay-pw
+  secretEnv:
+    PASSWORD: CiQAUULEud9Ej8XtwNAb9gkbDVhSGFZYhUGE30fNwR+7ehAOkH8SMgCz6KYeykjgS16RPxgKlrIQL/1TKDt06v4OXGIisFXOkdWC+jvdda8mTzVNCi8sT5g6 
