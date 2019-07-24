@@ -18,7 +18,7 @@ steps:
   args: ['push', 'quay.io/hipsterstore/adservice:v0.1.1-4-g$SHORT_SHA']
 
 - name: 'quay.io/deployhub/compupdate'
-  args: ['python', '/opt/deployhub/scripts/compupdate.py','--dhurl', 'https://console.deployhub.com', '--dhuser', '$$DH_USERID', '--dhpass', '$$DH_PASSWORD', '--compname', 'adservice', '--compvariant', 'v0_1_8_9', '--compversion', '$SHORT_SHA', '--compattr', 'DockerSha=$IMAGE', '--compattr', 'DockerRepo=quay.io', '--compattr', 'GitCommit=$SHORT_SHA']
+  args: ['python', '/opt/deployhub/scripts/compupdate.py','--dhurl', 'https://console.deployhub.com', '--dhuser', '$$DH_USERID', '--dhpass', '$$DH_PASSWORD', '--compname', 'adservice', '--compvariant', 'v0_1_8_9', '--compversion', '$SHORT_SHA', '--compattr', 'DockerSha=$IMAGE_NAME', '--compattr', 'DockerRepo=quay.io', '--compattr', 'GitCommit=$SHORT_SHA']
 
 secrets:
 - kmsKeyName: projects/eighth-physics-169321/locations/global/keyRings/cli/cryptoKeys/quay
