@@ -3,7 +3,7 @@ steps:
 
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: sh
-  args: ['-c', "docker build -f src/adservice/Dockerfile --tag=hipsterstore/adservice:v0.1.1-4-g$SHORT_SHA --build-arg BLDDATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg REPO_NAME=$REPO_NAME --build-arg COMMIT_SHA=$COMMIT_SHA --build-arg GIT_TAG=$(git describe --tags --exact-match || git symbolic-ref -q --short HEAD) src/adservice"]
+  args: ['-c', "docker build -f src/adservice/Dockerfile --tag=quay.io/hipsterstore/adservice:v0.1.1-4-g$SHORT_SHA --build-arg BLDDATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg REPO_NAME=$REPO_NAME --build-arg COMMIT_SHA=$COMMIT_SHA --build-arg GIT_TAG=$(git describe --tags --exact-match || git symbolic-ref -q --short HEAD) src/adservice"]
 
 # Login to Quay for push.
 # PASSWORD is decrypted before this step runs.
@@ -15,7 +15,7 @@ steps:
 
 # Push the image to Quay.
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'hipsterstore/adservice:v0.1.1-4-g$SHORT_SHA']
+  args: ['push', 'quay.io/hipsterstore/adservice:v0.1.1-4-g$SHORT_SHA']
 
 - name: 'quay.io/deployhub/compupdate'
   args: ['--dhurl', 'https://console.deployhub.com' ]
