@@ -1,30 +1,24 @@
 steps:
 # Build the image and save details as part of the LABEL
 
- - name: 'gcr.io/cloud-builders/docker'
-   entrypoint: sh
-   args:
-     - '-c'
-     - "docker build -f src/adservice/Dockerfile --tag=gcr.io/$PROJECT_ID/adservice:v0.1.1-4-g$SHORT_SHA --build-arg BLDDATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg REPO_NAME=$REPO_NAME --build-arg COMMIT_SHA=$COMMIT_SHA --build-arg GIT_TAG=$(git describe --tags --exact-match || git symbolic-ref -q --short HEAD) src/adservice"
-
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['tag', 'gcr.io/$PROJECT_ID/adservice:v0.1.1-4-g$SHORT_SHA', 'hipsterstore/adservice:v0.1.1-4-g$SHORT_SHA']
+  entrypoint: sh
+  args: ['-c', "docker build -f src/adservice/Dockerfile --tag=hipsterstore/adservice:v0.1.1-4-g$SHORT_SHA --build-arg BLDDATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') --build-arg REPO_NAME=$REPO_NAME --build-arg COMMIT_SHA=$COMMIT_SHA --build-arg GIT_TAG=$(git describe --tags --exact-match || git symbolic-ref -q --short HEAD) src/adservice"]
 
-# Login to provide credentials for the push.
+# Login to Quay for push.
 # PASSWORD is decrypted before this step runs.
 # Note: You need a shell to resolve environment variables with $$
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
-  args: ['-c', 'docker login --username=$$USERID --password=$$PASSWORD' quay.io]
+  args: ['-c', 'docker login --username=$$USERID --password=$$PASSWORD quay.io']
   secretEnv: ['USERID', 'PASSWORD']
 
-# Push the image to Dockerhub.
+# Push the image to Quay.
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'hipsterstore/adservice:v0.1.1-4-g$SHORT_SHA']
 
- - name: 'quay.io/deployhub/compupdate'
-   args: ['--dhurl', 'https://console.deployhub.com', ]
-images: ['[IMAGE_NAME]']  
+- name: 'quay.io/deployhub/compupdate'
+  args: ['--dhurl', 'https://console.deployhub.com' ]
 
 secrets:
 - kmsKeyName: projects/[PROJECT-ID]/locations/global/keyRings/cli/cryptoKeys/quay
