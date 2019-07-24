@@ -18,8 +18,7 @@ steps:
   args: ['push', 'quay.io/hipsterstore/adservice:v0.1.1-4-g$SHORT_SHA']
 
 - name: 'quay.io/deployhub/compupdate'
-  args: ['--dhurl', 'https://console.deployhub.com' ]
-
+  args: ['python', '/opt/deployhub/scripts/compupdate.py','--dhurl', 'https://console.deployhub.com', '--dhuser', '$$DH_USERID', '--dhpass', '$$DH_PASSWORD', '--compname', 'adservice', '--compvariant', 'v0_1_8_9', '--compversion', '$SHORT_SHA', '--compattr', 'DockerSha=$IMAGE', '--compattr', 'DockerRepo=quay.io', '--compattr', 'GitCommit=$SHORT_SHA']
 
 secrets:
 - kmsKeyName: projects/eighth-physics-169321/locations/global/keyRings/cli/cryptoKeys/quay
@@ -28,3 +27,10 @@ secrets:
 - kmsKeyName: projects/eighth-physics-169321/locations/global/keyRings/cli/cryptoKeys/quay-pw
   secretEnv:
     PASSWORD: CiQAUULEud9Ej8XtwNAb9gkbDVhSGFZYhUGE30fNwR+7ehAOkH8SMgCz6KYeykjgS16RPxgKlrIQL/1TKDt06v4OXGIisFXOkdWC+jvdda8mTzVNCi8sT5g6 
+- kmsKeyName: projects/eighth-physics-169321/locations/global/keyRings/cli/cryptoKeys/quay
+  secretEnv:
+    DH_USERID: CiQAWaYEU4nkdjNznYFaHubYQf+lQm6T0URfs+yBbIKx8lsOkisSMgC/Ky27ZVNGq5EeijDkQN8tYoeTghwvLIdw6hI2P2chP4MeHUr35xPAAQY+29XLE9aR
+- kmsKeyName: projects/eighth-physics-169321/locations/global/keyRings/cli/cryptoKeys/quay-pw
+  secretEnv:
+    DH_PASSWORD: CiQAJVcuyUzsA6cRs1jf2YpjjQ8GO9VVcvG3GRqQisz3YYAJBvcSLgBByiFzMalaG2wls+Oq65oRzjLsXBWfnqObbz0T2Xe9KvXZO9B/qj4e52hWPU4=
+
