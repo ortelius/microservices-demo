@@ -19,9 +19,9 @@ node {
     
     stage ('Testing') {
    
-def comp="GLOBAL.Chasing Horses LLC.Vintage LLC.Hipster Store.Ad Service.adservice"
+def comp="GLOBAL.Chasing Horses LLC.Vintage LLC.Hipster Store.Front End.frontend"
 def version = "0.1.0"
-def imagename = "adservice"
+def imagename = "frontend"
 
 echo "${url}";
 echo "${version}";
@@ -46,16 +46,16 @@ def attrs = [
 	     GitTag: "git tag",
 	     GitUrl: "git url",
 	     buildnumber: env.BUILD_ID, 
-	     buildjob: "",
+	     buildjob: "GLOBAL.test-project",
 	     ComponentType: "Application File",
-	     ChangeRequestDS: "",
-	     Category: "MicroService",
+	     ChangeRequestDS: "GLOBAL.JiraUnisys",
+	     Category: "General",
 	     AlwaysDeploy: "N",
 	     DeploySequentially: "N",
 	     BaseDirectory: "tmp",
 	     PreAction: "",
 	     PostAction: "",
-	     CustomAction: "",
+	     CustomAction: "GLOBAL.HelmChart",
 	     Summary: "Pipeline Comp"
 	    ];
 echo "${attrs}";
