@@ -4,7 +4,6 @@ description: Workflow to echo a nice hello world message to the logs
 steps:
 - name: deploy
   image: deployhub/deployapp:latest
-  command: ls
   args:
-  - "-la"
-  - "/"
+  - "--dhusr"
+  - "admin"
