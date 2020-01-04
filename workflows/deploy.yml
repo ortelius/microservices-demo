@@ -5,4 +5,11 @@ steps:
 - name: deploy
   image: deployhub/deployapp:latest
   args:
-  - "--help"
+  - "--dhuser"
+		- "!Secret dhuser"
+		- "--dhpass"
+		- "!Secret dhpass"
+	 - "--appname"
+		- "Webstore;July 4th Sale;1_2_9_0"
+		- "--env"
+		- "XXXXX"
