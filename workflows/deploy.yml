@@ -6,10 +6,10 @@ steps:
   image: deployhub/deployapp:latest
   args:
   - "--dhuser"
-		- "stella99"
-		- "--dhpass"
-		- "123456"
-	 - "--appname"
-		- "Webstore;July 4th Sale;1_2_9_0"
-		- "--env"
-		- "XXXXX"
+  - "!Secret dhuser"
+  - "--dhpass"
+  - "!Secret dhpass"
+  - "--appname"
+  - "Webstore;July 4th Sale;1_2_9_0"
+  - "--env"
+  - "XXXXX"
