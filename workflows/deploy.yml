@@ -5,5 +5,4 @@ steps:
 - name: deploy
   image: deployhub/deployapp:latest
   args:
-  - "--dhusr"
-  - "admin"
+  - "--help"
