@@ -1,9 +1,10 @@
 version: v1
-description: Workflow to deploy application with DeployHub
+description: Workflow to echo a nice hello world message to the logs
 
 steps:
 - name: deploy
-  image: quay.io/deployhub/deployapp:latest
+  image: deployhub/deployapp:latest
+  command: ls
   args:
   - "-la"
   - "/"
