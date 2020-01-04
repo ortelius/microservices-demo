@@ -6,9 +6,9 @@ steps:
   image: deployhub/deployapp:latest
   args:
   - "--dhuser"
-		- "!Secret dhuser"
+		- "$(ni get -p {.dhuser})"
 		- "--dhpass"
-		- "!Secret dhpass"
+		- "$(ni get -p {.dhpass})"
 	 - "--appname"
 		- "Webstore;July 4th Sale;1_2_9_0"
 		- "--env"
