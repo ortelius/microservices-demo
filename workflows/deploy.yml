@@ -3,7 +3,7 @@ description: Workflow to echo a nice hello world message to the logs
 
 steps:
 - name: deploy
-  image: deployhub/deployapp:latest
+  image: deployhub/cli:latest
   args:
   - "deploy"
   - "--dhurl"
