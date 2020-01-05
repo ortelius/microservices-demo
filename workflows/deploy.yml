@@ -5,7 +5,7 @@ steps:
 - name: deploy
   image: deployhub/deployapp:latest
   args:
-		- "deploy"
+  - "deploy"
   - "--dhurl"
   - "https://console.deployhub.com"					
   - "--dhuser"
