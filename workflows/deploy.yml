@@ -14,4 +14,4 @@ steps:
   - "--appname"
   - "Webstore;July 4th Sale;1_2_9_0"
   - "--env"
-  - "XXXXX"
+  - "QA Kubernetes GKE"
