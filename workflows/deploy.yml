@@ -1,18 +1,15 @@
 version: v1
 description: Workflow to echo a nice hello world message to the logs
 
-steps:
-- name: deploy
-  image: deployhub/cli:latest
-  args:
-  - "deploy"
-  - "--dhurl"
-  - "https://console.deployhub.com"					
-  - "--dhuser"
-  - "stella99"
-  - "--dhpass"
-  - "123456"
-  - "--appname"
-  - "Webstore;July 4th Sale;1_2_9_0"
-  - "--env"
-  - "QA Kubernetes GKE"
+steps: 
+  - 
+    image: "deployhub/nebula:latest"
+    name: deployhub
+    spec: 
+      action: deploy
+      appname: "Webstore;July 4th Sale;1_2_9_0"
+      dhpass: 123456
+      dhurl: "https://console.deployhub.com"
+      dhuser: stella99
+      envs: "QA Kubernetes GKE"
+
