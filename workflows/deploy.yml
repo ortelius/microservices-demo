@@ -11,5 +11,5 @@ steps:
       dhpass: 123456
       dhurl: "https://console.deployhub.com"
       dhuser: stella99
-      envs: "QA Kubernetes GKE"
+      deployenv: "QA Kubernetes GKE"
 
