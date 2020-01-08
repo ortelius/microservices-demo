@@ -1,5 +1,5 @@
 version: v1
-description: Workflow to echo a nice hello world message to the logs
+description: Workflow to run a deployment via DeployHub
 
 steps: 
   - 
