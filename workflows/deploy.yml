@@ -8,8 +8,9 @@ steps:
     spec: 
       action: deploy
       appname: "Webstore;July 4th Sale;1_2_9_0"
-      dhpass: 123456
-      dhurl: "https://console.deployhub.com"
-      dhuser: stella99
       deployenv: "QA Kubernetes GKE"
+      registry:
+        password: !Secret deploy-hub-registry-password
+        username: !Secret deploy-hub-registry-username
+        url: "https://console.deployhub.com"
 
