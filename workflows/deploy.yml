@@ -8,7 +8,7 @@ steps:
     spec: 
       action: deploy
       appname: "Webstore;July 4th Sale;1_2_9_0"
-      deployenv: "QA Kubernetes GKE"
+      deployenv: "XXXX"
       registry:
         password: !Secret deploy-hub-registry-password
         username: !Secret deploy-hub-registry-username
